@@ -25,11 +25,15 @@ Based on the [Constraint-Context matrix](https://blog.thepete.net/blog/2025/05/2
 1. **Choose an architecture** from our catalog:
    ```json
    {
-     "api": {
-       "architecture": "controller-service-repository",
-       "framework": "express",
-       "language": "typescript",
-       "dataAccess": "prisma"
+     "name": "my-api-project",
+     "version": "1.0.0",
+     "components": {
+       "api": {
+         "architecture": "controller-service-repository",
+         "framework": "express",
+         "language": "typescript",
+         "dataAccess": "prisma"
+       }
      }
    }
    ```
@@ -46,31 +50,32 @@ Based on the [Constraint-Context matrix](https://blog.thepete.net/blog/2025/05/2
 
 ## 🏛️ Available Architectures
 
-| Architecture | Description | Languages | Status |
-|-------------|-------------|-----------|---------|
-| Controller-Service-Repository | Clean separation of HTTP, business logic, and data access | TypeScript, JavaScript | ✅ Stable |
-| Clean Architecture | Domain-centric with clear boundaries | TypeScript, Java | 🚧 In Progress |
-| MVC | Model-View-Controller pattern | TypeScript, Python | 📋 Planned |
-| Event-Driven | Message-based microservices | TypeScript | 📋 Planned |
+| Architecture | Description | Languages | Frameworks | Data Access | Status |
+|--------------|-------------|-----------|------------|-------------|---------|
+| Controller-Service-Repository | Clean separation of HTTP handling, business logic, and data access | TypeScript, JavaScript | Express, Fastify | Prisma, TypeORM, Knex | ✅ Stable |
+| Clean Architecture | Domain-centric with clear boundaries | TypeScript | - | - | 📋 Planned |
+| MVC | Model-View-Controller pattern | TypeScript, Python | - | - | 📋 Planned |
+| Event-Driven | Message-based microservices | TypeScript | - | - | 📋 Planned |
 
 ## 📦 What's Included
 
 Each architecture specification provides:
 
 - **📐 Layer Definitions**: Clear responsibilities and boundaries for each architectural layer
-- **🧩 Templates**: Minimal code templates that establish patterns without over-constraining
-- **📜 Rules**: What to do and what to avoid
-- **🧠 AI Guidance**: Memories, conventions, and preferred libraries for AI assistants
-- **📝 Task Templates**: Step-by-step breakdowns for common operations
-- **📚 Documentation**: Links to examples and best practices
+- **🧩 Minimal Templates**: Structure and interfaces with placeholders, not full examples
+- **📜 Rules & Conventions**: Explicit patterns, practices, and anti-patterns to avoid
+- **🧠 AI Guidance**: Memories, preferred libraries, and context hints for AI assistants
+- **📝 Task Decomposition**: Step-by-step templates for complex operations
+- **📚 Documentation Links**: Internal ADRs and external library references
 
 ## 🎨 Core Principles
 
 1. **Constrain, Don't Dictate**: Provide structure while allowing creativity within boundaries
 2. **Explicit Over Implicit**: Make all conventions and patterns visible to AI
 3. **Composition Over Duplication**: Reuse layers and patterns across architectures
-4. **AI-First Design**: Optimize for how AI assistants actually work
-5. **Progressive Enhancement**: Start simple, add complexity as needed
+4. **AI-First Design**: Optimize for the Constraint-Context matrix comfort zone
+5. **Minimal Templates**: Focus on structure and interfaces, not full implementations
+6. **Progressive Enhancement**: Start simple, add complexity as needed
 
 ## 🤝 Contributing
 
@@ -98,13 +103,17 @@ Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
 ## 🗺️ Roadmap
 
 - [x] Core schema and manifest structure
-- [x] Controller-Service-Repository pattern
-- [x] AI guidance system
+- [x] Controller-Service-Repository pattern (TypeScript/JavaScript)
+- [x] Layer composition system
+- [x] AI guidance with memories and conventions
+- [x] Task decomposition templates
+- [x] Multiple data access library support (Prisma, TypeORM, Knex)
 - [ ] Clean Architecture pattern
 - [ ] Validation CLI tool
 - [ ] VS Code extension
 - [ ] Architecture generator
 - [ ] Multi-language support expansion
+- [ ] Additional framework support (NestJS, Koa)
 
 ## 📖 Documentation
 
