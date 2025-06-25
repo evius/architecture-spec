@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "description": "AI Agent Architecture Specifications",
+  "architectures": [
+    {
+      "id": "controller-service-repository",
+      "name": "Controller-Service-Repository Pattern",
+      "description": "Clean separation of HTTP handling, business logic, and data access",
+      "path": "/src/architectures/controller-service-repository.ts",
+      "layers": ["controller", "service", "repository"],
+      "languages": ["typescript", "javascript"],
+      "frameworks": ["express", "fastify"],
+      "tags": ["rest-api", "layered", "enterprise"]
+    }
+  ],
+  "layers": [
+    {
+      "id": "controller",
+      "name": "Controller Layer",
+      "description": "Handles HTTP requests and responses",
+      "path": "/src/layers/controller/base.ts",
+      "type": "presentation",
+      "compatibleWith": ["service", "use-case", "facade"],
+      "templates": {
+        "express": "/src/layers/controller/templates/express.ts",
+        "fastify": "/src/layers/controller/templates/fastify.ts"
+      },
+      "documentation": {
+        "internal": [
+          "/docs/ADR-001-controller-patterns.md"
+        ],
+        "external": [
+          "https://expressjs.com/en/guide/error-handling.html"
+        ]
+      }
+    },
+    {
+      "id": "service",
+      "name": "Service Layer",
+      "description": "Business logic and orchestration",
+      "path": "/src/layers/service/base.ts",
+      "type": "business",
+      "compatibleWith": ["repository", "gateway", "adapter"],
+      "templates": {
+        "class": "/src/layers/service/templates/class.ts",
+        "functional": "/src/layers/service/templates/functional.ts"
+      },
+      "documentation": {
+        "internal": [],
+        "external": []
+      }
+    },
+    {
+      "id": "repository",
+      "name": "Repository Layer",
+      "description": "Abstract data access and persistence",
+      "path": "/src/layers/repository/base.ts",
+      "type": "data",
+      "compatibleWith": [],
+      "templates": {
+        "interface": "/src/layers/repository/templates/interface.ts",
+        "prisma": "/src/layers/repository/templates/prisma.ts",
+        "typeorm": "/src/layers/repository/templates/typeorm.ts",
+        "knex": "/src/layers/repository/templates/knex.ts"
+      },
+      "documentation": {
+        "internal": [],
+        "external": [
+          "https://www.prisma.io/docs",
+          "https://typeorm.io",
+          "https://knexjs.org"
+        ]
+      }
+    }
+  ],
+  "templates": {
+    "typescript": {
+      "express": {
+        "layers": {
+          "controller": "/src/layers/controller/templates/express.ts",
+          "service": "/src/layers/service/templates/class.ts",
+          "repository": "/src/layers/repository/templates/interface.ts"
+        }
+      }
+    }
+  },
+  "styles": {
+    "typescript": {
+      "airbnb": {
+        "path": "/src/styles/typescript/airbnb.ts",
+        "linterConfig": "/src/styles/typescript/configs/.eslintrc.airbnb.json"
+      }
+    }
+  },
+  "compatibility": {
+    "tested": [
+      {
+        "architecture": "controller-service-repository",
+        "language": "typescript",
+        "framework": "express",
+        "dataAccess": "prisma"
+      }
+    ],
+    "incompatible": [
+      {
+        "layer1": "controller",
+        "layer2": "repository",
+        "reason": "Controllers should not directly access repositories - must go through service layer"
+      }
+    ]
+  },
+  "lastUpdated": "2025-06-25"
+}
