@@ -33,6 +33,12 @@ Based on the [Constraint-Context matrix](https://blog.thepete.net/blog/2025/05/2
          "framework": "express",
          "language": "typescript",
          "dataAccess": "prisma"
+       },
+       "queue": {
+         "architecture": "queue-architecture",
+         "queueBackend": "bullmq",
+         "language": "typescript",
+         "consumerPattern": "class"
        }
      }
    }
@@ -45,6 +51,14 @@ Based on the [Constraint-Context matrix](https://blog.thepete.net/blog/2025/05/2
    
    Create a user management API following this specification.
    ```
+   
+   Or for queue processing:
+   ```
+   I'm using the queue-architecture from 
+   https://github.com/[org]/ai-architecture-specs
+   
+   Create an email notification queue with retry logic.
+   ```
 
 3. **Watch AI generate consistent, well-architected code** that follows your patterns!
 
@@ -53,6 +67,7 @@ Based on the [Constraint-Context matrix](https://blog.thepete.net/blog/2025/05/2
 | Architecture | Description | Languages | Frameworks | Data Access | Status |
 |--------------|-------------|-----------|------------|-------------|---------|
 | Controller-Service-Repository | Clean separation of HTTP handling, business logic, and data access | TypeScript, JavaScript | Express, Fastify | Prisma, TypeORM, Knex | ✅ Stable |
+| Queue Architecture | Scalable queue processing with scheduling and job handling | TypeScript, JavaScript | BullMQ, pg-boss, AWS SQS, RabbitMQ | Redis, PostgreSQL, AWS, AMQP | ✅ Stable |
 | Clean Architecture | Domain-centric with clear boundaries | TypeScript | - | - | 📋 Planned |
 | MVC | Model-View-Controller pattern | TypeScript, Python | - | - | 📋 Planned |
 | Event-Driven | Message-based microservices | TypeScript | - | - | 📋 Planned |
@@ -116,12 +131,15 @@ Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
 
 - [x] Core schema and manifest structure
 - [x] Controller-Service-Repository pattern (TypeScript/JavaScript)
+- [x] Queue Architecture pattern with multiple backends (BullMQ, pg-boss, AWS SQS, RabbitMQ)
 - [x] Layer composition system
 - [x] AI guidance with memories and conventions
 - [x] Task decomposition templates
 - [x] Multiple data access library support (Prisma, TypeORM, Knex)
 - [x] Architecture generation prompt template
+- [x] Support for both class-based and functional programming patterns
 - [ ] Clean Architecture pattern
+- [ ] Event-Driven Architecture pattern
 - [ ] Validation CLI tool
 - [ ] VS Code extension
 - [ ] Multi-language support expansion

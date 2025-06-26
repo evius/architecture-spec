@@ -11,6 +11,16 @@
       "languages": ["typescript", "javascript"],
       "frameworks": ["express", "fastify"],
       "tags": ["rest-api", "layered", "enterprise"]
+    },
+    {
+      "id": "queue-architecture",
+      "name": "Queue Architecture with Scheduling",
+      "description": "Simple queues with scheduling, concurrency options, and centralized job handling",
+      "path": "/src/architectures/queue-architecture.ts",
+      "layers": ["consumer", "queue-manager", "job-handler"],
+      "languages": ["typescript", "javascript"],
+      "frameworks": ["bullmq", "pg-boss", "aws-sqs", "rabbitmq"],
+      "tags": ["queues", "async", "scheduling", "background-jobs"]
     }
   ],
   "layers": [
@@ -71,6 +81,71 @@
           "https://knexjs.org"
         ]
       }
+    },
+    {
+      "id": "consumer",
+      "name": "Queue Consumer Layer",
+      "description": "Process queue messages and manage queue setup",
+      "path": "/src/layers/consumer/base.ts",
+      "type": "processing",
+      "compatibleWith": ["job-handler", "queue-manager"],
+      "templates": {
+        "class": "/src/layers/consumer/templates/class.ts",
+        "functional": "/src/layers/consumer/templates/functional.ts"
+      },
+      "documentation": {
+        "internal": [],
+        "external": [
+          "https://docs.bullmq.io/guide/consumers",
+          "https://aws.amazon.com/sqs/"
+        ]
+      }
+    },
+    {
+      "id": "queue-manager",
+      "name": "Queue Manager Layer",
+      "description": "Manage queue infrastructure, configuration, and monitoring",
+      "path": "/src/layers/queue-manager/base.ts",
+      "type": "infrastructure",
+      "compatibleWith": ["monitoring", "configuration"],
+      "templates": {
+        "base": "/src/layers/queue-manager/templates/base.ts",
+        "bullmq": "/src/layers/queue-manager/templates/bullmq.ts",
+        "pg-boss": "/src/layers/queue-manager/templates/pg-boss.ts",
+        "aws-sqs": "/src/layers/queue-manager/templates/aws-sqs.ts",
+        "rabbitmq": "/src/layers/queue-manager/templates/rabbitmq.ts",
+        "memory": "/src/layers/queue-manager/templates/memory.ts"
+      },
+      "documentation": {
+        "internal": [],
+        "external": [
+          "https://docs.bullmq.io/guide/queues",
+          "https://github.com/timgit/pg-boss",
+          "https://aws.amazon.com/sqs/",
+          "https://www.rabbitmq.com/documentation.html",
+          "https://redis.io/docs/data-types/lists/"
+        ]
+      }
+    },
+    {
+      "id": "job-handler",
+      "name": "Job Handler Layer",
+      "description": "Centralized job processing utilities and scheduling",
+      "path": "/src/layers/job-handler/base.ts",
+      "type": "utility",
+      "compatibleWith": ["logging", "monitoring", "configuration"],
+      "templates": {
+        "class": "/src/layers/job-handler/templates/class.ts",
+        "scheduler": "/src/layers/job-handler/templates/scheduler.ts",
+        "retry-handler": "/src/layers/job-handler/templates/retry-handler.ts"
+      },
+      "documentation": {
+        "internal": [],
+        "external": [
+          "https://docs.bullmq.io/guide/jobs",
+          "https://www.npmjs.com/package/node-cron"
+        ]
+      }
     }
   ],
   "templates": {
@@ -80,6 +155,13 @@
           "controller": "/src/layers/controller/templates/express.ts",
           "service": "/src/layers/service/templates/class.ts",
           "repository": "/src/layers/repository/templates/interface.ts"
+        }
+      },
+      "bullmq": {
+        "layers": {
+          "consumer": "/src/layers/consumer/templates/class.ts",
+          "queue-manager": "/src/layers/queue-manager/templates/bullmq.ts",
+          "job-handler": "/src/layers/job-handler/templates/scheduler.ts"
         }
       }
     }
@@ -99,6 +181,12 @@
         "language": "typescript",
         "framework": "express",
         "dataAccess": "prisma"
+      },
+      {
+        "architecture": "queue-architecture",
+        "language": "typescript",
+        "framework": "bullmq",
+        "backend": "redis"
       }
     ],
     "incompatible": [
@@ -106,6 +194,16 @@
         "layer1": "controller",
         "layer2": "repository",
         "reason": "Controllers should not directly access repositories - must go through service layer"
+      },
+      {
+        "layer1": "consumer",
+        "layer2": "queue-manager",
+        "reason": "Consumers should not directly manage queue infrastructure - use dependency injection"
+      },
+      {
+        "layer1": "job-handler",
+        "layer2": "consumer",
+        "reason": "Job handlers should not depend on specific consumer implementations"
       }
     ]
   },

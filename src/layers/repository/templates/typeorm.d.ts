@@ -1,3 +1,2 @@
-export declare class TypeOrm {
-}
+export declare class TypeOrm {}
 //# sourceMappingURL=typeorm.d.ts.map
