@@ -77,10 +77,22 @@ Each architecture specification provides:
 5. **Minimal Templates**: Focus on structure and interfaces, not full implementations
 6. **Progressive Enhancement**: Start simple, add complexity as needed
 
+## ✨ Creating New Architectures
+
+Want to add a new architecture pattern? We've made it easy! Use our **Architecture Generation Prompt Template** to quickly create comprehensive specifications:
+
+1. **Get the template**: Check out [`/prompts/create-architecture.md`](prompts/create-architecture.md)
+2. **Configure variables**: Set your architecture description and number of questions (1-10)
+3. **Use with AI**: The template guides you through high-level strategic questions
+4. **Generate specification**: Creates a complete, production-ready architecture spec
+5. **Integrate**: Add to manifest.json and start using immediately
+
+The template leverages existing patterns and focuses on strategic decisions rather than implementation details, making architecture creation fast and effective.
+
 ## 🤝 Contributing
 
 We welcome contributions! Whether you want to:
-- Add a new architecture pattern
+- Add a new architecture pattern (use our prompt template!)
 - Enhance existing specifications
 - Improve documentation
 - Share your team's conventions
@@ -108,10 +120,10 @@ Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
 - [x] AI guidance with memories and conventions
 - [x] Task decomposition templates
 - [x] Multiple data access library support (Prisma, TypeORM, Knex)
+- [x] Architecture generation prompt template
 - [ ] Clean Architecture pattern
 - [ ] Validation CLI tool
 - [ ] VS Code extension
-- [ ] Architecture generator
 - [ ] Multi-language support expansion
 - [ ] Additional framework support (NestJS, Koa)
 
